@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Katalog Eiger Nganjuk</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f6f2;
+  color:#203329;
+}
+header{
+  background:#173d2b;
+  color:white;
+  padding:24px 6%;
+}
+header h1{margin:0}
+header p{margin-bottom:0;color:#d8e6d9}
+.hero{
+  padding:45px 6%;
+  background:#dce9d4;
+}
+.hero h2{font-size:32px;margin-top:0}
+.container{max-width:1100px;margin:auto;padding:24px 16px}
+.panel{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:25px;
+  box-shadow:0 3px 12px #0000000a;
+}
+input,select,textarea,button{
+  font:inherit;
+  padding:11px;
+  border-radius:7px;
+}
+input,select,textarea{
+  width:100%;
+  border:1px solid #ccd5cc;
+  margin:5px 0 12px;
+}
+button{
+  border:0;
+  cursor:pointer;
+  background:#1d583b;
+  color:white;
+  font-weight:bold;
+}
+button:hover{opacity:.85}
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+}
+.card{
+  background:white;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 3px 12px #00000010;
+}
+.card img{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+  background:#e1e8df;
+}
+.card-content{padding:15px}
+.card h3{margin:8px 0}
+.price{font-size:18px;font-weight:bold}
+.available{color:#198044;font-weight:bold}
+.low{color:#ad7000;font-weight:bold}
+.empty{color:#c62828;font-weight:bold}
+.actions{display:flex;gap:8px;margin-top:12px}
+.actions button{flex:1;font-size:12px}
+.delete{background:#b52c2c}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin:15px 0;
+}
+.stat{background:#edf3e9;padding:15px;border-radius:8px}
+.stat strong{display:block;font-size:24px;margin-top:8px}
+footer{
+  text-align:center;
+  background:#173d2b;
+  color:white;
+  padding:25px;
+}
+@media(max-width:550px){
+  .form-grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <h1>EIGER NGANJUK</h1>
+  <p>Katalog Perlengkapan Outdoor</p>
+</header>
+
+<section class="hero">
+  <h2>Jelajahi Petualanganmu</h2>
+  <p>Cari perlengkapan outdoor favoritmu dan cek stok produk.</p>
+</section>
+
+<main class="container">
+
+<section class="panel">
+  <h2>Kelola Produk dan Stok</h2>
+
+  <div class="stats">
+    <div class="stat">Jenis Produk<strong id="jenis">0</strong></div>
+    <div class="stat">Total Stok<strong id="jumlahStok">0</strong></div>
+    <div class="stat">Produk Habis<strong id="habis">0</strong></div>
+  </div>
+
+  <form id="formProduk">
+    <input type="hidden" id="id">
+
+    <div class="form-grid">
+      <div>
+        <label>Nama Produk</label>
+        <input id="nama" required placeholder="Contoh: Tas Carrier">
+      </div>
+      <div>
+        <label>Kategori</label>
+        <select id="kategori">
+          <option>Tas</option>
+          <option>Jaket</option>
+          <option>Sepatu</option>
+          <option>Camping</option>
+          <option>Aksesori</option>
+          <option>Pakaian</option>
+        </select>
+      </div>
+      <div>
+        <label>Harga (Rp)</label>
+        <input id="harga" type="number" min="0" step="1" required>
+      </div>
+      <div>
+        <label>Jumlah Stok</label>
+        <input id="stok" type="number" min="0" max="1000000"
+               step="1" value="0" required>
+      </div>
+      <div>
+        <label>Ukuran / Varian</label>
+        <input id="ukuran" placeholder="Contoh: M, L, XL">
+      </div>
+      <div>
+        <label>URL Foto Produk</label>
+        <input id="gambar" type="url" placeholder="https://...">
+      </div>
+    </div>
+
+    <label>Deskripsi Produk</label>
+    <textarea id="deskripsi" rows="3"
+      placeholder="Deskripsi produk..."></textarea>
+
+    <button type="submit" id="simpan">+ Tambah Produk</button>
+    <button type="button" onclick="resetForm()">Reset</button>
+  </form>
+</section>
+
+<section>
+  <h2>Katalog Produk</h2>
+  <input id="cari" placeholder="Cari produk..."
+         oninput="render()">
+
+  <select id="filter" onchange="render()">
+    <option value="">Semua kategori</option>
+    <option>Tas</option>
+    <option>Jaket</option>
+    <option>Sepatu</option>
+    <option>Camping</option>
+    <option>Aksesori</option>
+    <option>Pakaian</option>
+  </select>
+
+  <div class="products" id="daftar"></div>
+  <p id="kosong" hidden>Produk tidak ditemukan.</p>
+</section>
+
+</main>
+
+<footer>
+  <strong>EIGER NGANJUK</strong>
+  <p>Katalog perlengkapan petualangan.</p>
+  <small>© <span id="tahun"></span> Katalog Eiger Nganjuk</small>
+</footer>
+
+<script>
+const KEY = "eiger_nganjuk_products";
+
+const contohProduk = [
+  {
+    id:1,
+    nama:"Tas Carrier Outdoor",
+    kategori:"Tas",
+    harga:450000,
+    stok:8,
+    ukuran:"40 Liter",
+    gambar:"",
+    deskripsi:"Tas untuk kegiatan outdoor."
+  },
+  {
+    id:2,
+    nama:"Jaket Outdoor",
+    kategori:"Jaket",
+    harga:325000,
+    stok:3,
+    ukuran:"M, L, XL",
+    gambar:"",
+    deskripsi:"Jaket untuk menemani perjalanan."
+  },
+  {
+    id:3,
+    nama:"Sepatu Hiking",
+    kategori:"Sepatu",
+    harga:575000,
+    stok:0,
+    ukuran:"39-44",
+    gambar:"",
+    deskripsi:"Sepatu untuk kegiatan hiking."
+  }
+];
+
+let produk;
+try {
+  const tersimpan = localStorage.getItem(KEY);
+  produk = tersimpan === null
+    ? contohProduk
+    : JSON.parse(tersimpan);
+
+  if (!Array.isArray(produk)) throw Error();
+} catch {
+  produk = contohProduk;
+}
+
+function simpanData(){
+  try {
+    localStorage.setItem(KEY, JSON.stringify(produk));
+    return true;
+  } catch {
+    alert("Data gagal disimpan di browser.");
+    return false;
+  }
+}
+
+function rupiah(n){
+  return new Intl.NumberFormat("id-ID",{
+    style:"currency",
+    currency:"IDR",
+    maximumFractionDigits:0
+  }).format(n);
+}
+
+function statusStok(n){
+  if(n === 0)
+    return ["Stok Habis","empty"];
+  if(n <= 3)
+    return ["Hampir Habis - "+n+" unit","low"];
+  return ["Tersedia - "+n+" unit","available"];
+}
+
+function render(){
+  const kata = document.getElementById("cari")
+    .value.toLowerCase().trim();
+  const kategori = document.getElementById("filter").value;
+
+  const hasil = produk.filter(p =>
+    p.nama.toLowerCase().includes(kata) &&
+    (!kategori || p.kategori === kategori)
+  );
+
+  const daftar = document.getElementById("daftar");
+  daftar.replaceChildren();
+
+  hasil.forEach(p => {
+    const status = statusStok(p.stok);
+    const card = document.createElement("article");
+    card.className = "card";
+
+    const img = document.createElement("img");
+    img.alt = p.nama;
+    img.src = p.gambar || 
+      "https://placehold.co/500x350/e1e8df/173d2b?text=Outdoor+Gear";
+    img.onerror = () => {
+      img.onerror = null;
+      img.src = "https://placehold.co/500x350/e1e8df/173d2b?text=Outdoor+Gear";
+    };
+
+    const content = document.createElement("div");
+    content.className = "card-content";
+
+    const category = document.createElement("small");
+    category.textContent = p.kategori;
+
+    const name = document.createElement("h3");
+    name.textContent = p.nama;
+
+    const desc = document.createElement("p");
+    desc.textContent = p.deskripsi || "";
+
+    const size = document.createElement("p");
+    size.textContent = p.ukuran ? "Varian: " + p.ukuran : "";
+
+    const price = document.createElement("p");
+    price.className = "price";
+    price.textContent = rupiah(p.harga);
+
+    const stock = document.createElement("p");
+    stock.className = status[1];
+    stock.textContent = status[0];
+
+    const actions = document.createElement("div");
+    actions.className = "actions";
+
+    const edit = document.createElement("button");
+    edit.textContent = "Edit Stok";
+    edit.onclick = () => editProduk(p.id);
+
+    const del = document.createElement("button");
+    del.textContent = "Hapus";
+    del.className = "delete";
+    del.onclick = () => hapusProduk(p.id);
+
+    actions.append(edit,del);
+    content.append(category,name,desc,size,price,stock,actions);
+    card.append(img,content);
+    daftar.append(card);
+  });
+
+  document.getElementById("kosong").hidden = hasil.length > 0;
+  document.getElementById("jenis").textContent = produk.length;
+  document.getElementById("jumlahStok").textContent =
+    produk.reduce((sum,p) => sum + p.stok,0);
+  document.getElementById("habis").textContent =
+    produk.filter(p => p.stok === 0).length;
+}
+
+document.getElementById("formProduk").addEventListener("submit",e=>{
+  e.preventDefault();
+
+  const id = document.getElementById("id").value;
+  const nama = document.getElementById("nama").value.trim();
+  const harga = Number(document.getElementById("harga").value);
+  const stok = Number(document.getElementById("stok").value);
+  const gambar = document.getElementById("gambar").value.trim();
+
+  if(!nama || !Number.isSafeInteger(harga) || harga < 0 ||
+     !Number.isSafeInteger(stok) || stok < 0 || stok > 1000000){
+    alert("Nama, harga, atau stok tidak valid.");
+    return;
+  }
+
+  if(gambar){
+    try {
+      if(!["http:","https:"].includes(new URL(gambar).protocol))
+        throw Error();
+    } catch {
+      alert("URL foto tidak valid.");
+      return;
+    }
+  }
+
+  const data = {
+    nama,
+    kategori:document.getElementById("kategori").value,
+    harga,
+    stok,
+    ukuran:document.getElementById("ukuran").value.trim(),
+    gambar,
+    deskripsi:document.getElementById("deskripsi").value.trim()
+  };
+
+  if(id){
+    const index = produk.findIndex(p=>p.id===Number(id));
+    if(index < 0) return;
+    produk[index] = {...produk[index],...data};
+  } else {
+    produk.push({...data,id:Date.now()});
+  }
+
+  if(!simpanData()) return;
+
+  resetForm();
+  render();
+  alert("Data produk berhasil disimpan.");
+});
+
+function editProduk(id){
+  const p = produk.find(x=>x.id===id);
+  if(!p) return;
+
+  document.getElementById("id").value = p.id;
+  document.getElementById("nama").value = p.nama;
+  document.getElementById("kategori").value = p.kategori;
+  document.getElementById("harga").value = p.harga;
+  document.getElementById("stok").value = p.stok;
+  document.getElementById("ukuran").value = p.ukuran || "";
+  document.getElementById("gambar").value = p.gambar || "";
+  document.getElementById("deskripsi").value = p.deskripsi || "";
+  document.getElementById("simpan").textContent = "Simpan Perubahan";
+
+  document.getElementById("formProduk")
+    .scrollIntoView({behavior:"smooth"});
+}
+
+function hapusProduk(id){
+  const p = produk.find(x=>x.id===id);
+  if(!p || !confirm("Hapus produk "+p.nama+"?")) return;
+
+  const lama = produk;
+  produk = produk.filter(x=>x.id!==id);
+  if(!simpanData()){
+    produk = lama;
+    return;
+  }
+  render();
+}
+
+function resetForm(){
+  document.getElementById("formProduk").reset();
+  document.getElementById("id").value = "";
+  document.getElementById("stok").value = 0;
+  document.getElementById("simpan").textContent = "+ Tambah Produk";
+}
+
+document.getElementById("tahun").textContent =
+  new Date().getFullYear();
+
+render();
+</script>
+</body>
+</html>
