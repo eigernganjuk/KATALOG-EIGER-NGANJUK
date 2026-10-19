@@ -2,446 +2,510 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Katalog Eiger Nganjuk</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f47721" />
+  <title>Katalog Outdoor | Orange Store</title>
 
-<style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f4f6f2;
-  color:#203329;
-}
-header{
-  background:#173d2b;
-  color:white;
-  padding:24px 6%;
-}
-header h1{margin:0}
-header p{margin-bottom:0;color:#d8e6d9}
-.hero{
-  padding:45px 6%;
-  background:#dce9d4;
-}
-.hero h2{font-size:32px;margin-top:0}
-.container{max-width:1100px;margin:auto;padding:24px 16px}
-.panel{
-  background:white;
-  padding:20px;
-  border-radius:12px;
-  margin-bottom:25px;
-  box-shadow:0 3px 12px #0000000a;
-}
-input,select,textarea,button{
-  font:inherit;
-  padding:11px;
-  border-radius:7px;
-}
-input,select,textarea{
-  width:100%;
-  border:1px solid #ccd5cc;
-  margin:5px 0 12px;
-}
-button{
-  border:0;
-  cursor:pointer;
-  background:#1d583b;
-  color:white;
-  font-weight:bold;
-}
-button:hover{opacity:.85}
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-.products{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
-}
-.card{
-  background:white;
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 3px 12px #00000010;
-}
-.card img{
-  width:100%;
-  height:190px;
-  object-fit:cover;
-  background:#e1e8df;
-}
-.card-content{padding:15px}
-.card h3{margin:8px 0}
-.price{font-size:18px;font-weight:bold}
-.available{color:#198044;font-weight:bold}
-.low{color:#ad7000;font-weight:bold}
-.empty{color:#c62828;font-weight:bold}
-.actions{display:flex;gap:8px;margin-top:12px}
-.actions button{flex:1;font-size:12px}
-.delete{background:#b52c2c}
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin:15px 0;
-}
-.stat{background:#edf3e9;padding:15px;border-radius:8px}
-.stat strong{display:block;font-size:24px;margin-top:8px}
-footer{
-  text-align:center;
-  background:#173d2b;
-  color:white;
-  padding:25px;
-}
-@media(max-width:550px){
-  .form-grid{grid-template-columns:1fr}
-  .stats{grid-template-columns:1fr}
-}
-</style>
+  <style>
+    :root {
+      --orange: #f47721;
+      --dark: #202020;
+      --light: #f6f6f6;
+      --green: #25d366;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--dark);
+      background: var(--light);
+    }
+
+    header {
+      background: var(--orange);
+      color: white;
+      padding: 22px 6%;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    .brand small {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 3px;
+      margin-top: 5px;
+    }
+
+    .hero {
+      padding: 36px 0 20px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 5vw, 48px);
+      text-transform: uppercase;
+    }
+
+    .hero p { margin: 0; line-height: 1.6; }
+
+    main {
+      max-width: 1200px;
+      margin: auto;
+      padding: 28px 18px 50px;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    input, select {
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      font-size: 14px;
+    }
+
+    input { flex: 1; min-width: 180px; }
+    select { min-width: 160px; }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .section-title h2 { margin: 0; }
+
+    #status {
+      color: #666;
+      font-size: 13px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+      gap: 20px;
+    }
+
+    .product {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 15px #0000000c;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: #e8e8e8;
+    }
+
+    .product-body {
+      padding: 16px;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    .category {
+      font-size: 11px;
+      color: #777;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .product h3 {
+      font-size: 17px;
+      margin: 9px 0;
+    }
+
+    .price {
+      color: var(--orange);
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .stock {
+      margin: 10px 0 15px;
+      font-size: 13px;
+    }
+
+    .available { color: #178447; }
+    .empty { color: #c0392b; }
+
+    .wa-button {
+      display: block;
+      margin-top: auto;
+      padding: 12px;
+      border-radius: 8px;
+      background: var(--green);
+      color: #102a18;
+      text-align: center;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .wa-button.disabled {
+      background: #ddd;
+      color: #777;
+      pointer-events: none;
+    }
+
+    .empty-state {
+      padding: 35px 10px;
+      text-align: center;
+      color: #666;
+      grid-column: 1 / -1;
+    }
+
+    footer {
+      padding: 24px 16px;
+      text-align: center;
+      background: #202020;
+      color: #ddd;
+      font-size: 13px;
+    }
+
+    @media (max-width: 520px) {
+      header { padding: 20px; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .product-body { padding: 12px; }
+      .product h3 { font-size: 15px; }
+      .price { font-size: 16px; }
+      .wa-button { font-size: 12px; }
+    }
+  </style>
 </head>
 
 <body>
-<header>
-  <h1>EIGER NGANJUK</h1>
-  <p>Katalog Perlengkapan Outdoor</p>
-</header>
-
-<section class="hero">
-  <h2>Jelajahi Petualanganmu</h2>
-  <p>Cari perlengkapan outdoor favoritmu dan cek stok produk.</p>
-</section>
-
-<main class="container">
-
-<section class="panel">
-  <h2>Kelola Produk dan Stok</h2>
-
-  <div class="stats">
-    <div class="stat">Jenis Produk<strong id="jenis">0</strong></div>
-    <div class="stat">Total Stok<strong id="jumlahStok">0</strong></div>
-    <div class="stat">Produk Habis<strong id="habis">0</strong></div>
-  </div>
-
-  <form id="formProduk">
-    <input type="hidden" id="id">
-
-    <div class="form-grid">
-      <div>
-        <label>Nama Produk</label>
-        <input id="nama" required placeholder="Contoh: Tas Carrier">
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        ORANGE STORE
+        <small>GEAR FOR ADVENTURE</small>
       </div>
-      <div>
-        <label>Kategori</label>
-        <select id="kategori">
-          <option>Tas</option>
-          <option>Jaket</option>
-          <option>Sepatu</option>
-          <option>Camping</option>
-          <option>Aksesori</option>
-          <option>Pakaian</option>
-        </select>
-      </div>
-      <div>
-        <label>Harga (Rp)</label>
-        <input id="harga" type="number" min="0" step="1" required>
-      </div>
-      <div>
-        <label>Jumlah Stok</label>
-        <input id="stok" type="number" min="0" max="1000000"
-               step="1" value="0" required>
-      </div>
-      <div>
-        <label>Ukuran / Varian</label>
-        <input id="ukuran" placeholder="Contoh: M, L, XL">
-      </div>
-      <div>
-        <label>URL Foto Produk</label>
-        <input id="gambar" type="url" placeholder="https://...">
-      </div>
+      <div>Katalog Produk Outdoor</div>
     </div>
 
-    <label>Deskripsi Produk</label>
-    <textarea id="deskripsi" rows="3"
-      placeholder="Deskripsi produk..."></textarea>
+    <div class="hero">
+      <h1>Explore More.</h1>
+      <p>Temukan perlengkapan petualangan favoritmu.</p>
+    </div>
+  </header>
 
-    <button type="submit" id="simpan">+ Tambah Produk</button>
-    <button type="button" onclick="resetForm()">Reset</button>
-  </form>
-</section>
+  <main>
+    <div class="toolbar">
+      <input id="search" type="search"
+        placeholder="Cari nama produk..." aria-label="Cari produk" />
 
-<section>
-  <h2>Katalog Produk</h2>
-  <input id="cari" placeholder="Cari produk..."
-         oninput="render()">
+      <select id="category" aria-label="Filter kategori">
+        <option value="">Semua kategori</option>
+      </select>
+    </div>
 
-  <select id="filter" onchange="render()">
-    <option value="">Semua kategori</option>
-    <option>Tas</option>
-    <option>Jaket</option>
-    <option>Sepatu</option>
-    <option>Camping</option>
-    <option>Aksesori</option>
-    <option>Pakaian</option>
-  </select>
+    <div class="section-title">
+      <h2>Katalog Produk</h2>
+      <span id="status">Memuat produk...</span>
+    </div>
 
-  <div class="products" id="daftar"></div>
-  <p id="kosong" hidden>Produk tidak ditemukan.</p>
-</section>
+    <section id="products" class="grid" aria-live="polite"></section>
+  </main>
 
-</main>
+  <footer>
+    © <span id="year"></span> Orange Store · Katalog perlengkapan outdoor
+  </footer>
 
-<footer>
-  <strong>EIGER NGANJUK</strong>
-  <p>Katalog perlengkapan petualangan.</p>
-  <small>© <span id="tahun"></span> Katalog Eiger Nganjuk</small>
-</footer>
+  <script>
+    // ===== UBAH KONFIGURASI DI SINI =====
 
-<script>
-const KEY = "eiger_nganjuk_products";
+    // Gunakan kode negara 62, tanpa tanda + atau angka 0 di depan.
+    const WHATSAPP_NUMBER = "6281234567890";
 
-const contohProduk = [
-  {
-    id:1,
-    nama:"Tas Carrier Outdoor",
-    kategori:"Tas",
-    harga:450000,
-    stok:8,
-    ukuran:"40 Liter",
-    gambar:"",
-    deskripsi:"Tas untuk kegiatan outdoor."
-  },
-  {
-    id:2,
-    nama:"Jaket Outdoor",
-    kategori:"Jaket",
-    harga:325000,
-    stok:3,
-    ukuran:"M, L, XL",
-    gambar:"",
-    deskripsi:"Jaket untuk menemani perjalanan."
-  },
-  {
-    id:3,
-    nama:"Sepatu Hiking",
-    kategori:"Sepatu",
-    harga:575000,
-    stok:0,
-    ukuran:"39-44",
-    gambar:"",
-    deskripsi:"Sepatu untuk kegiatan hiking."
-  }
-];
+    // URL CSV publik, misalnya URL CSV yang dipublikasikan dari Google Sheets.
+    // Biarkan kosong untuk menggunakan contoh produk di bawah.
+    const CSV_URL = "";
 
-let produk;
-try {
-  const tersimpan = localStorage.getItem(KEY);
-  produk = tersimpan === null
-    ? contohProduk
-    : JSON.parse(tersimpan);
+    // Ganti dengan data produk milik toko Anda.
+    const SAMPLE_PRODUCTS = [
+      {
+        name: "Tas Adventure 25L",
+        category: "Tas",
+        price: 450000,
+        stock: 8,
+        image: "https://placehold.co/600x450/f47721/ffffff?text=Adventure+Bag"
+      },
+      {
+        name: "Jaket Outdoor",
+        category: "Pakaian",
+        price: 375000,
+        stock: 5,
+        image: "https://placehold.co/600x450/333333/ffffff?text=Outdoor+Jacket"
+      },
+      {
+        name: "Sepatu Hiking",
+        category: "Sepatu",
+        price: 625000,
+        stock: 0,
+        image: "https://placehold.co/600x450/777777/ffffff?text=Hiking+Shoes"
+      },
+      {
+        name: "Botol Minum",
+        category: "Aksesori",
+        price: 125000,
+        stock: 12,
+        image: "https://placehold.co/600x450/f47721/ffffff?text=Water+Bottle"
+      }
+    ];
 
-  if (!Array.isArray(produk)) throw Error();
-} catch {
-  produk = contohProduk;
-}
+    // ===== AKHIR KONFIGURASI =====
 
-function simpanData(){
-  try {
-    localStorage.setItem(KEY, JSON.stringify(produk));
-    return true;
-  } catch {
-    alert("Data gagal disimpan di browser.");
-    return false;
-  }
-}
+    const productContainer = document.getElementById("products");
+    const statusText = document.getElementById("status");
+    const searchInput = document.getElementById("search");
+    const categorySelect = document.getElementById("category");
 
-function rupiah(n){
-  return new Intl.NumberFormat("id-ID",{
-    style:"currency",
-    currency:"IDR",
-    maximumFractionDigits:0
-  }).format(n);
-}
+    let products = [...SAMPLE_PRODUCTS];
 
-function statusStok(n){
-  if(n === 0)
-    return ["Stok Habis","empty"];
-  if(n <= 3)
-    return ["Hampir Habis - "+n+" unit","low"];
-  return ["Tersedia - "+n+" unit","available"];
-}
+    const rupiah = value => new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      maximumFractionDigits: 0
+    }).format(value);
 
-function render(){
-  const kata = document.getElementById("cari")
-    .value.toLowerCase().trim();
-  const kategori = document.getElementById("filter").value;
+    // Mendukung koma dalam tanda kutip pada CSV.
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let cell = "";
+      let quoted = false;
 
-  const hasil = produk.filter(p =>
-    p.nama.toLowerCase().includes(kata) &&
-    (!kategori || p.kategori === kategori)
-  );
+      text = text.replace(/^\uFEFF/, "");
 
-  const daftar = document.getElementById("daftar");
-  daftar.replaceChildren();
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const next = text[i + 1];
 
-  hasil.forEach(p => {
-    const status = statusStok(p.stok);
-    const card = document.createElement("article");
-    card.className = "card";
+        if (char === '"' && quoted && next === '"') {
+          cell += '"';
+          i++;
+        } else if (char === '"') {
+          quoted = !quoted;
+        } else if (char === "," && !quoted) {
+          row.push(cell.trim());
+          cell = "";
+        } else if ((char === "\n" || char === "\r") && !quoted) {
+          if (char === "\r" && next === "\n") i++;
+          row.push(cell.trim());
+          if (row.some(value => value !== "")) rows.push(row);
+          row = [];
+          cell = "";
+        } else {
+          cell += char;
+        }
+      }
 
-    const img = document.createElement("img");
-    img.alt = p.nama;
-    img.src = p.gambar || 
-      "https://placehold.co/500x350/e1e8df/173d2b?text=Outdoor+Gear";
-    img.onerror = () => {
-      img.onerror = null;
-      img.src = "https://placehold.co/500x350/e1e8df/173d2b?text=Outdoor+Gear";
-    };
+      row.push(cell.trim());
+      if (row.some(value => value !== "")) rows.push(row);
 
-    const content = document.createElement("div");
-    content.className = "card-content";
+      if (rows.length < 2) return [];
 
-    const category = document.createElement("small");
-    category.textContent = p.kategori;
+      const headers = rows.shift().map(h =>
+        h.trim().toLowerCase().replace(/^\uFEFF/, "")
+      );
 
-    const name = document.createElement("h3");
-    name.textContent = p.nama;
-
-    const desc = document.createElement("p");
-    desc.textContent = p.deskripsi || "";
-
-    const size = document.createElement("p");
-    size.textContent = p.ukuran ? "Varian: " + p.ukuran : "";
-
-    const price = document.createElement("p");
-    price.className = "price";
-    price.textContent = rupiah(p.harga);
-
-    const stock = document.createElement("p");
-    stock.className = status[1];
-    stock.textContent = status[0];
-
-    const actions = document.createElement("div");
-    actions.className = "actions";
-
-    const edit = document.createElement("button");
-    edit.textContent = "Edit Stok";
-    edit.onclick = () => editProduk(p.id);
-
-    const del = document.createElement("button");
-    del.textContent = "Hapus";
-    del.className = "delete";
-    del.onclick = () => hapusProduk(p.id);
-
-    actions.append(edit,del);
-    content.append(category,name,desc,size,price,stock,actions);
-    card.append(img,content);
-    daftar.append(card);
-  });
-
-  document.getElementById("kosong").hidden = hasil.length > 0;
-  document.getElementById("jenis").textContent = produk.length;
-  document.getElementById("jumlahStok").textContent =
-    produk.reduce((sum,p) => sum + p.stok,0);
-  document.getElementById("habis").textContent =
-    produk.filter(p => p.stok === 0).length;
-}
-
-document.getElementById("formProduk").addEventListener("submit",e=>{
-  e.preventDefault();
-
-  const id = document.getElementById("id").value;
-  const nama = document.getElementById("nama").value.trim();
-  const harga = Number(document.getElementById("harga").value);
-  const stok = Number(document.getElementById("stok").value);
-  const gambar = document.getElementById("gambar").value.trim();
-
-  if(!nama || !Number.isSafeInteger(harga) || harga < 0 ||
-     !Number.isSafeInteger(stok) || stok < 0 || stok > 1000000){
-    alert("Nama, harga, atau stok tidak valid.");
-    return;
-  }
-
-  if(gambar){
-    try {
-      if(!["http:","https:"].includes(new URL(gambar).protocol))
-        throw Error();
-    } catch {
-      alert("URL foto tidak valid.");
-      return;
+      return rows.map(values => {
+        const item = {};
+        headers.forEach((header, index) => {
+          item[header] = values[index] ?? "";
+        });
+        return item;
+      });
     }
-  }
 
-  const data = {
-    nama,
-    kategori:document.getElementById("kategori").value,
-    harga,
-    stok,
-    ukuran:document.getElementById("ukuran").value.trim(),
-    gambar,
-    deskripsi:document.getElementById("deskripsi").value.trim()
-  };
+    function numberValue(value) {
+      // Format CSV harga/stok sebaiknya angka polos, misalnya 450000.
+      const cleaned = String(value ?? "").replace(/[^\d.-]/g, "");
+      return Number(cleaned) || 0;
+    }
 
-  if(id){
-    const index = produk.findIndex(p=>p.id===Number(id));
-    if(index < 0) return;
-    produk[index] = {...produk[index],...data};
-  } else {
-    produk.push({...data,id:Date.now()});
-  }
+    function normalizeProducts(rows) {
+      return rows.map(row => ({
+        name: row.name || row.nama || "Produk",
+        category: row.category || row.kategori || "Lainnya",
+        price: numberValue(row.price ?? row.harga),
+        stock: Math.max(0, numberValue(row.stock ?? row.stok)),
+        image: row.image || row.gambar || ""
+      }));
+    }
 
-  if(!simpanData()) return;
+    async function loadProducts() {
+      if (!CSV_URL.trim()) {
+        products = [...SAMPLE_PRODUCTS];
+        statusText.textContent = `${products.length} produk contoh`;
+        renderCategories();
+        renderProducts();
+        return;
+      }
 
-  resetForm();
-  render();
-  alert("Data produk berhasil disimpan.");
-});
+      try {
+        const separator = CSV_URL.includes("?") ? "&" : "?";
+        const response = await fetch(
+          CSV_URL + separator + "_=" + Date.now(),
+          { cache: "no-store" }
+        );
 
-function editProduk(id){
-  const p = produk.find(x=>x.id===id);
-  if(!p) return;
+        if (!response.ok) throw new Error("CSV tidak dapat diakses");
 
-  document.getElementById("id").value = p.id;
-  document.getElementById("nama").value = p.nama;
-  document.getElementById("kategori").value = p.kategori;
-  document.getElementById("harga").value = p.harga;
-  document.getElementById("stok").value = p.stok;
-  document.getElementById("ukuran").value = p.ukuran || "";
-  document.getElementById("gambar").value = p.gambar || "";
-  document.getElementById("deskripsi").value = p.deskripsi || "";
-  document.getElementById("simpan").textContent = "Simpan Perubahan";
+        const csvText = await response.text();
+        const parsed = normalizeProducts(parseCSV(csvText));
 
-  document.getElementById("formProduk")
-    .scrollIntoView({behavior:"smooth"});
-}
+        if (!parsed.length) throw new Error("Data CSV kosong atau format salah");
 
-function hapusProduk(id){
-  const p = produk.find(x=>x.id===id);
-  if(!p || !confirm("Hapus produk "+p.nama+"?")) return;
+        products = parsed;
+        statusText.textContent = "Stok diperbarui " +
+          new Date().toLocaleTimeString("id-ID");
 
-  const lama = produk;
-  produk = produk.filter(x=>x.id!==id);
-  if(!simpanData()){
-    produk = lama;
-    return;
-  }
-  render();
-}
+        renderCategories();
+        renderProducts();
+      } catch (error) {
+        console.error(error);
+        statusText.textContent = "CSV gagal dimuat; menampilkan data cadangan";
 
-function resetForm(){
-  document.getElementById("formProduk").reset();
-  document.getElementById("id").value = "";
-  document.getElementById("stok").value = 0;
-  document.getElementById("simpan").textContent = "+ Tambah Produk";
-}
+        if (!products.length) products = [...SAMPLE_PRODUCTS];
+        renderCategories();
+        renderProducts();
+      }
+    }
 
-document.getElementById("tahun").textContent =
-  new Date().getFullYear();
+    function renderCategories() {
+      const selected = categorySelect.value;
+      const categories = [...new Set(
+        products.map(p => p.category).filter(Boolean)
+      )];
 
-render();
-</script>
+      categorySelect.replaceChildren(new Option("Semua kategori", ""));
+
+      categories.forEach(category => {
+        categorySelect.add(new Option(category, category));
+      });
+
+      if (categories.includes(selected)) categorySelect.value = selected;
+    }
+
+    function makeWhatsAppLink(product) {
+      const message =
+        `Halo, saya ingin pesan produk ${product.name}. ` +
+        `Harga: ${rupiah(product.price)}. Mohon konfirmasi stok terbaru.`;
+
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    }
+
+    function renderProducts() {
+      const query = searchInput.value.trim().toLowerCase();
+      const category = categorySelect.value;
+
+      const filtered = products.filter(product =>
+        product.name.toLowerCase().includes(query) &&
+        (!category || product.category === category)
+      );
+
+      productContainer.replaceChildren();
+
+      if (!filtered.length) {
+        productContainer.innerHTML =
+          '<div class="empty-state">Produk tidak ditemukan.</div>';
+      } else {
+        filtered.forEach(product => {
+          const card = document.createElement("article");
+          card.className = "product";
+
+          const image = document.createElement("img");
+          image.src = product.image ||
+            "https://placehold.co/600x450/eeeeee/333333?text=Produk";
+          image.alt = product.name;
+          image.loading = "lazy";
+          image.onerror = () => {
+            image.onerror = null;
+            image.src =
+              "https://placehold.co/600x450/eeeeee/333333?text=Produk";
+          };
+
+          const body = document.createElement("div");
+          body.className = "product-body";
+
+          const categoryLabel = document.createElement("div");
+          categoryLabel.className = "category";
+          categoryLabel.textContent = product.category;
+
+          const name = document.createElement("h3");
+          name.textContent = product.name;
+
+          const price = document.createElement("div");
+          price.className = "price";
+          price.textContent = rupiah(product.price);
+
+          const stock = document.createElement("div");
+          stock.className = "stock " +
+            (product.stock > 0 ? "available" : "empty");
+          stock.textContent = product.stock > 0
+            ? `Stok tersedia: ${product.stock}`
+            : "Stok habis";
+
+          const link = document.createElement("a");
+          link.className = "wa-button" +
+            (product.stock <= 0 ? " disabled" : "");
+          link.textContent = product.stock > 0
+            ? "Pesan via WhatsApp"
+            : "Stok Habis";
+          link.href = product.stock > 0 ? makeWhatsAppLink(product) : "#";
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          if (product.stock <= 0) link.setAttribute("aria-disabled", "true");
+
+          body.append(categoryLabel, name, price, stock, link);
+          card.append(image, body);
+          productContainer.append(card);
+        });
+      }
+
+      statusText.textContent = `${filtered.length} produk`;
+    }
+
+    searchInput.addEventListener("input", renderProducts);
+    categorySelect.addEventListener("change", renderProducts);
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    loadProducts();
+
+    // Periksa perubahan stok setiap 60 detik jika CSV dikonfigurasi.
+    if (CSV_URL.trim()) {
+      setInterval(loadProducts, 60000);
+    }
+  </script>
 </body>
 </html>
